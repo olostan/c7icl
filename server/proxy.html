@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <title>socket.io client test</title>            
+    <script src="/json.js"></script> <!-- for ie -->
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="ansi.css" type="text/css">
+  </head>
+  <body>
+    
+    <script>
+      function ansi(str) {
+	var pos = 0, last_pos =0, result = "";
+	while ((pos = str.indexOf("\x1b[",last_pos)) !=-1 ) 
+	{
+	  result += str.substr(last_pos,pos - last_pos);
+	  var posm = str.indexOf("m",pos+2);
+	  if (posm == -1) return result;
+	  var clsArr = new Array();
+	  var attrs = str.substr(pos+2,posm - 2 - pos).split(";");
+	  for(var attrN in attrs) 
+	  	clsArr.push("ansi-"+attrs[attrN]);
+	  var cls = clsArr.join(' ');
+	  result += "</span><span class=\""+cls+"\">";
+	  last_pos = posm+1;
+	}
+	return result + str.substr(last_pos);
+	
+      }
+      function message(obj){
+        var el = document.createElement('span');    
+        el.className = obj.className;
+        el.innerHTML = '<span class="def">'+esc(obj.message)+'</span>';
+        document.getElementById('chat').appendChild(el);
+        document.getElementById('chat').scrollTop = 1000000;
+      }
+      
+      function send(){
+        var val = document.getElementById('text').value;
+        socket.send(val);
+        message({ message: val+"\n", className:'input' });
+        document.getElementById('text').value = '';
+      }
+      
+      function esc(msg){
+        //return String(msg).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        //return String(msg).replace(/\s/g,'<br />').replace(/[\n\r]/g,'<br />')+'<br />';        
+        msg = String(msg).replace(/ /g,'&nbsp;').replace(/\n/g,'<br />');
+        return ansi(msg);
+      };
+      
+//      var socket = new io.Socket(null, {port: 8080, rememberTransport: false});
+      var socket = new io.Socket(null, {port: 8080, rememberTransport: true});
+      socket.connect();
+      var visible = false;
+      socket.on('message', function(obj){
+        if (!visible) {
+            document.getElementById('form').style.display='block';
+	    document.getElementById('chat').innerHTML = '';
+	    visible = true;
+	}
+        message(obj);        
+      });
+      socket.on('disconnect', function() {
+        message({ message: '(connect to server was lost)'});
+        //socket.connect();
+      });
+    </script>
+    <div id="chat"><p>Connecting...</p></div>
+    <form id="form" onsubmit="send(); return false">
+      <input type="text" autocomplete="off" id="text"><input type="submit" value="Send">
+    </form>
+    
+  </body>
+</html>

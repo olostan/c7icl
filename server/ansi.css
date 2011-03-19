@@ -1,0 +1,107 @@
+.undefined {
+color: white;
+}
+      #chat { height: 300px; overflow: auto; width: 800px; border: 1px solid #eee;
+    	    font: 13px Monaco,"Bitstream Vera Sans Mono",
+             "Lucida Console",
+             Terminal,
+             monospace;
+             background-color: black;
+              }
+
+      #chat span { padding: 0; margin: 0; margin-top:6pt; line-height: 4px;  }
+      #chat span.input { color: yellow; font-weight: bold; }
+      #form { width: 782px; background: #333; padding: 5px 10px; display: none; }
+      #form input[type=text] { width: 700px; padding: 5px; background: #fff; border: 1px solid #fff; }
+      #form input[type=submit] { cursor: pointer; background: #999; border: none; padding: 6px 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; }
+      #form input[type=submit]:hover { background: #A2A2A2; }
+      #form input[type=submit]:active { position: relative; top: 2px; }
+
+
+    
+.ansi-0 {
+  background: black;
+  color: white;
+}
+
+.ansi-1 {
+  font-weight: bold;
+}
+
+.ansi-2 {
+}
+
+.ansi-4 {
+ text-decoration: underline;
+}
+
+.ansi-5 {
+  text-decoration: blink;
+}
+
+.ansi-30 {
+  color: gray;
+}
+
+.ansi-31 {
+  color: red;
+}
+
+.ansi-32 {
+  color: #00ff00;
+}
+
+.ansi-33 {
+  color: yellow;
+}
+
+.ansi-34 {
+  color: blue;
+}
+
+.ansi-35 {
+  color: magenta;
+}
+
+.ansi-36 {
+  color: cyan;
+}
+
+.ansi-37 {
+  color: white;
+}
+
+.ansi-40 {
+  background: black;
+}
+
+.ansi-41 {
+  background: red;
+}
+
+.ansi-42 {
+  background: green;
+}
+
+.ansi-43 {
+  background: yellow;
+}
+
+.ansi-44 {
+  background: blue;
+}
+
+.ansi-45 {
+  background: magenta;
+}
+
+.ansi-46 {
+  background: cyan;
+}
+
+.ansi-47 {
+  background: white;
+}
+
+
+.xxdef { color:grey; }          
